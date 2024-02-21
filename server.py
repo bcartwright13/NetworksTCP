@@ -68,18 +68,23 @@ def get_hashed_data(hash_request):
 def start_server(port):
     # This function will create our TCP Server Socket, start listening, then return the Socket Object
 
-    tcp_server_socket = socket.socket(TODO)
-    tcp_server_socket.setblocking(TODO)  # Allow multiple connections
-    tcp_server_socket.bind(TODO)  # Start listening!
-    tcp_server_socket.listen(TODO)  # 10 is the max number of queued connections allowed
+    tcp_server_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    tcp_server_socket.setblocking(0)  # Allow multiple connections
+    tcp_server_socket.bind(('',port))  # Start listening!
+    tcp_server_socket.listen(5)  # 10 is the max number of queued connections allowed
     return tcp_server_socket
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     # Variables we need
-    server_port = TODO  # Extract server port from command line arguments
-    hash_salt = TODO  # Extract salt value from command line arguments
+    if len(sys.argv) < 3:
+        print("Improper command line arguments\nExiting program...")
+        sys.exit(1)
+    print(int(sys.argv[2]))
+    print(sys.argv[4])
+    server_port = int(sys.argv[2]) # Extract server port from command line arguments
+    hash_salt = sys.argv[4] # Extract salt value from command line arguments
 
     server_socket = start_server(server_port)
     clients = [server_socket]
